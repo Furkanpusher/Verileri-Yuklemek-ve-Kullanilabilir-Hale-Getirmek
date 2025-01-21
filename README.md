@@ -8,6 +8,6 @@ Bu çözünürlük değerleri training aşamasını daha ucuz ve hızlı hale ge
 
 Çünkü düşük çözünürlüklü data ile eğitilen model yüksek çözünürlüklü verilerde tahmin yaparken problem yaşayacaktır.
 
-Burda doğru aralığı 640x640 olarak varsayabilirz. Çünkü 640x640 çözünürlük hem eğitimi çok masraflı bir hale getirmezken ayrıca yeterince detayda sağlayacaktır. 
+Burda doğru aralığı 640x640 olarak varsayabilirz. Çünkü 640x640 çözünürlük hem eğitimi çok masraflı bir hale getirmezken ayrıca yeterince detayıda korumamızı sağlayacaktır.
 
 
