@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 from tqdm import tqdm
 
-def load_images_from_folder(folder_path, target_size=(224, 224), normalize=False): # çok yer kaplamasın diye 224x224 yaptım
+def load_images_from_folder(folder_path, target_size=(640, 640), normalize=False): # çok yer kaplamasın diye 224x224 yaptım
     images = []
     file_paths = []
     
@@ -17,8 +17,8 @@ def load_images_from_folder(folder_path, target_size=(224, 224), normalize=False
                 img = cv2.resize(img, target_size)
                 
                 if normalize:
-                    img = img.astype(np.float32) / 255.0   #normalleştirmek şart değil ama deep learning ağı için daha stabil
-                                                                                        # türev değerleri üretir
+                    img = img.astype(np.float32) / 255.0   #normalleştirmek şart değil ama deep learning ağı için daha stabil şekilde türev değerleri güncellenir
+                    # Hem de Deep learning modelleri 0 ile 1 arasındaki değerler ile daha iyi performans gösterirler. Fakat şu anlık burda bir normalleştirme yapmıyoruz.
                 
                 images.append(img)
                 file_paths.append(file_path)
@@ -38,7 +38,7 @@ paths = {
 data = {}
 for key, path in paths.items():     # x_train, x_test, y_train, y_test olarak ayrı ayrı almak istiyorum
     print(f"\nYükleniyor: {key}")
-    images, _ = load_images_from_folder(path, normalize=False)
+    images, _ = load_images_from_folder(path, normalize=False)  # normalize yok 
     data[key] = images
     print(f"{key} shape: {images.shape}")
 
@@ -59,7 +59,7 @@ for key in loaded_data.files:
 
 
 
-# YÜKLEDİĞİM VERİLERİDE BU SEFERİNDE KULLANABİLİYORUM HER SEFERİNDE 
+# YÜKLEDİĞİM VERİLERİDE BU ŞEKİLDE HER SEFERİNDE KULLANABİLİYORUM
 
 # neden .npz tipinde dosyayı kaydettik çünkü .npz Numpy'a özel bir dizi sıkıştırma dosya tipidir, .npz hızlıdır boyutlar korunur
 # ve tek kötü tarafı sadece numpy ile çalışmasıdır
@@ -69,10 +69,10 @@ y_train = data['y_train']
 x_test = data['x_test']
 y_test = data['y_test']
 
-print(f"x_train boyutu: {x_train.shape}")  # (2103, 224, 224, 3) #(veri_sayısı, height, width, channels)
-print(f"x_test boyutu: {x_test.shape}")    # (1111, 224, 224, 3)
-print(f"y_train boyutu: {y_train.shape}")  # (2103, 224, 224, 3)
-print(f"y_test boyutu: {y_test.shape}")    # (1111, 224, 224, 3)
+print(f"x_train boyutu: {x_train.shape}")  # (2103, 640, 640, 3) #(veri_sayısı, height, width, channels)
+print(f"x_test boyutu: {x_test.shape}")    # (1111, 640, 640, 3) #channels = 3 çünkü veri bgr bir resim, eğer grayscale olsaydı 1 olurdu
+print(f"y_train boyutu: {y_train.shape}")  # (2103, 640, 640, 3)
+print(f"y_test boyutu: {y_test.shape}")    # (1111, 640, 640, 3)
 
 
 # İLERİDE MİNİ-BATCHLER KULLANILARAK DAHA VERİMLİ BİR TRAİNİNG SÜRECİNE ULAŞILABİLİR
