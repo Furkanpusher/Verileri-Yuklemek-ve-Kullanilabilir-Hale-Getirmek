@@ -25,7 +25,7 @@ def load_images_from_folder(folder_path, target_size=(640, 640), normalize=False
     
     return np.array(images), file_paths  # np.array önemli
 
-# Veri yollarını tanımla
+# Veriler burada
 base_path = 'assets/Gopro/Gopro'  # temel yol bu bunun üstünden gidelim
 paths = {
     'x_train': os.path.join(base_path, 'train/blur'),
@@ -34,7 +34,7 @@ paths = {
     'y_test': os.path.join(base_path, 'test/sharp')
 }
 
-# Verileri yükle
+# Verileri yükleme zamanı
 data = {}
 for key, path in paths.items():     # x_train, x_test, y_train, y_test olarak ayrı ayrı almak istiyorum
     print(f"\nYükleniyor: {key}")
